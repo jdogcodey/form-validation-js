@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    width: 500px;
+    height: 100%;
+    display: grid;
+    grid-template: 1fr 1fr 1fr 1fr 1fr 1fr / 1fr 1fr;
+}
+
+.right-side {
+    display: flex;
+    flex-direction: column;
+    height: 100px;   
+}
+
+.form-help {
+    display: none;
+    background-color: blue;
+    border-radius: 5px;
+    color: white;
+    padding: 3px;
+
+}
+
+#submit {
+    grid-area: 6 / 1 / 7 / 3; 
+}
+
+.valid {
+    background-color: greenyellow;
+}
+
+.invalid {
+    background-color: red;
+}
+

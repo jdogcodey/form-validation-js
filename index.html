@@ -261,9 +261,9 @@
         <label for="postcode">Postcode / Zip Code</label>
         <input type="text" id="postcode" placeholder="AB12 CDE">
         <label for="password">Password</label>
-        <input type="password" id="password">
+        <input type="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
         <label for="repeat-password">Repeat Password</label>
-        <input type="password" id="repeat-password">
+        <input type="password" id="repeat-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
         <input type="submit" value="Submit">
     </form>
 </body>

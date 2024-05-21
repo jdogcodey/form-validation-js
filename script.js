@@ -1,15 +1,23 @@
-// Function to add 'change' event listener
-function addChangeEvent(element) {
-  const eleToAddEvent = document.getElementById(element);
-  eleToAddEvent.addEventListener("change", () => {
-    if (eleToAddEvent.checkValidity()) {
-      eleToAddEvent.classList.add("valid");
-      eleToAddEvent.classList.remove("invalid");
+function addRegularChangeEvent(element) {
+  validTest(
+    document.getElementById(element),
+    document.getElementById(`${element + "-span"}`)
+  );
+}
+
+function validTest(ele, eleSpan) {
+  ele.addEventListener("change", () => {
+    if (ele.checkValidity()) {
+      ele.classList.add("valid");
+      ele.classList.remove("invalid");
+      eleSpan.style.display = "none";
     } else {
-      eleToAddEvent.classList.add("invalid");
-      eleToAddEvent.classList.remove("valid");
+      ele.classList.add("invalid");
+      ele.classList.remove("valid");
+      eleSpan.style.display = "block";
     }
   });
 }
 
-addChangeEvent();
+addRegularChangeEvent("email");
+addRegularChangeEvent("country");

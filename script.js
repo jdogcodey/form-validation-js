@@ -1,23 +1,19 @@
-function addRegularChangeEvent(element) {
-  validTest(
-    document.getElementById(element),
-    document.getElementById(`${element + "-span"}`)
-  );
-}
-
-function validTest(ele, eleSpan) {
-  ele.addEventListener("change", () => {
-    if (ele.checkValidity()) {
-      ele.classList.add("valid");
-      ele.classList.remove("invalid");
+// Function to add 'change' event listener
+function addChangeEvent(element) {
+  const eleToAddEvent = document.getElementById(element);
+  const eleSpan = document.getElementById(`${element + "-span"}`);
+  eleToAddEvent.addEventListener("change", () => {
+    if (eleToAddEvent.checkValidity()) {
+      eleToAddEvent.classList.add("valid");
+      eleToAddEvent.classList.remove("invalid");
       eleSpan.style.display = "none";
     } else {
-      ele.classList.add("invalid");
-      ele.classList.remove("valid");
+      eleToAddEvent.classList.add("invalid");
+      eleToAddEvent.classList.remove("valid");
       eleSpan.style.display = "block";
     }
   });
 }
 
-addRegularChangeEvent("email");
-addRegularChangeEvent("country");
+addChangeEvent("email");
+addChangeEvent("country");

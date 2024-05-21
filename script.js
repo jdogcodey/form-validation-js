@@ -3,22 +3,44 @@ function addChangeEvent(element) {
   const eleToAddEvent = document.getElementById(element);
   const eleSpan = document.getElementById(`${element + "-span"}`);
   eleToAddEvent.addEventListener("change", () => {
-    if (eleToAddEvent.checkValidity()) {
-      eleToAddEvent.classList.add("valid");
-      eleToAddEvent.classList.remove("invalid");
-      eleSpan.style.display = "none";
+    checkValidity(eleToAddEvent, eleSpan);
+  });
+}
+
+function postEvent() {
+  const postInput = document.getElementById("postcode");
+  const postSpan = document.getElementById("postcode-span");
+  postInput.addEventListener("change", () => {
+    changePostPattern();
+    if (postInput.validity.patternMismatch) {
+      postInput.classList.add("invalid");
+      postInput.classList.remove("valid");
+      postSpan.style.display = "block";
     } else {
-      eleToAddEvent.classList.add("invalid");
-      eleToAddEvent.classList.remove("valid");
-      eleSpan.style.display = "block";
+      postInput.classList.add("valid");
+      postInput.classList.remove("invalid");
+      postSpan.style.display = "none";
     }
   });
+}
+
+function checkValidity(element, span) {
+  console.log("running");
+  if (element.checkValidity()) {
+    element.classList.add("valid");
+    element.classList.remove("invalid");
+    span.style.display = "none";
+  } else {
+    element.classList.add("invalid");
+    element.classList.remove("valid");
+    span.style.display = "block";
+  }
 }
 
 //Function to change the postcode pattern based on country
 function changePostPattern() {
   const codeList = {
-    GB: "GIR[ ]?0AA|((AB|AL|B|BA|BB|BD|BH|BL|BN|BR|BS|BT|CA|CB|CF|CH|CM|CO|CR|CT|CV|CW|DA|DD|DE|DG|DH|DL|DN|DT|DY|E|EC|EH|EN|EX|FK|FY|G|GL|GY|GU|HA|HD|HG|HP|HR|HS|HU|HX|IG|IM|IP|IV|JE|KA|KT|KW|KY|L|LA|LD|LE|LL|LN|LS|LU|M|ME|MK|ML|N|NE|NG|NN|NP|NR|NW|OL|OX|PA|PE|PH|PL|PO|PR|RG|RH|RM|S|SA|SE|SG|SK|SL|SM|SN|SO|SP|SR|SS|ST|SW|SY|TA|TD|TF|TN|TQ|TR|TS|TW|UB|W|WA|WC|WD|WF|WN|WR|WS|WV|YO|ZE)(d[dA-Z]?[ ]?d[ABD-HJLN-UW-Z]{2}))|BFPO[ ]?d{1,4}",
+    GB: `[A-Z]{1,2}d[A-Zd]? d[ABD-HJLNP-UW-Z]{2}`,
     JE: "JEd[dA-Z]?[ ]?d[ABD-HJLN-UW-Z]{2}",
     GG: "GYd[dA-Z]?[ ]?d[ABD-HJLN-UW-Z]{2}",
     IM: "IMd[dA-Z]?[ ]?d[ABD-HJLN-UW-Z]{2}",
@@ -180,14 +202,14 @@ function changePostPattern() {
   const countrySelector = document.getElementById("country").value;
   const postcodeInput = document.getElementById("postcode");
   const countrySpan = document.getElementById("country-span");
-  if (countrySelector === null) {
+  if (countrySelector === undefined) {
     countrySpan.innerHTML = "Please select a Country first";
   } else {
-    for (countrySelector.value in codeList) {
-      postcodeInput.pattern = countrySelector.value[0];
-    }
+    console.log(codeList[countrySelector]);
+    postcodeInput.pattern = codeList[countrySelector];
   }
 }
 
 addChangeEvent("email");
 addChangeEvent("country");
+postEvent();

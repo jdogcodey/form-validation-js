@@ -40,11 +40,11 @@ function checkValidity(element, span) {
 //Function to change the postcode pattern based on country
 function changePostPattern() {
   const codeList = {
-    GB: `[A-Z]{1,2}d[A-Zd]? d[ABD-HJLNP-UW-Z]{2}`,
+    GB: "[A-Za-z]{3}",
     JE: "JEd[dA-Z]?[ ]?d[ABD-HJLN-UW-Z]{2}",
     GG: "GYd[dA-Z]?[ ]?d[ABD-HJLN-UW-Z]{2}",
     IM: "IMd[dA-Z]?[ ]?d[ABD-HJLN-UW-Z]{2}",
-    US: "d{5}([ -]d{4})?",
+    US: "/(^d{5}(-d{4})?$/",
     CA: "[ABCEGHJKLMNPRSTVXY]d[ABCEGHJ-NPRSTV-Z][ ]?d[ABCEGHJ-NPRSTV-Z]d",
     DE: "d{5}",
     JP: "d{3}-d{4}",

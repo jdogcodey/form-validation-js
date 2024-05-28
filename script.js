@@ -203,6 +203,29 @@ function changePostPattern() {
   }
 }
 
+function submitFunctionality() {
+  const submitButton = document.getElementById("submit");
+  const emailField = document.getElementById("email");
+  const countryField = document.getElementById("country");
+  const postcodeField = document.getElementById("postcode");
+  const passwordField = document.getElementById("password");
+  const repeatPassField = document.getElementById("repeat-password");
+  submitButton.addEventListener("click", () => {
+    event.preventDefault;
+    if (
+      emailField.classList.contains("valid") &&
+      countryField.classList.contains("valid") &&
+      postcodeField.classList.contains("valid") &&
+      passwordField.classList.contains("valid") &&
+      repeatPassField.classList.contains("valid")
+    ) {
+      alert("Success! This would Submit");
+    } else {
+      alert("Unsuccessful - Fill in all the boxes with valid answers!");
+    }
+  });
+}
+
 // Add event listeners when the page loads
 document.addEventListener("DOMContentLoaded", () => {
   addChangeEvent("country");
@@ -210,4 +233,5 @@ document.addEventListener("DOMContentLoaded", () => {
   postEvent();
   passwordTest("password");
   passwordMatch("repeat-password");
+  submitFunctionality();
 });

@@ -15,14 +15,46 @@ function postEvent() {
   countrySelect.addEventListener("change", changePostPattern);
   postInput.addEventListener("change", () => {
     changePostPattern();
-    if (postInput.validity.patternMismatch) {
-      postInput.classList.add("invalid");
-      postInput.classList.remove("valid");
-      postSpan.style.display = "block";
+    patternTestOutcome("postcode");
+  });
+}
+
+function patternTestOutcome(element) {
+  const eleInput = document.getElementById(element);
+  const eleSpan = document.getElementById(`${element}-span`);
+  if (eleInput.validity.patternMismatch) {
+    eleInput.classList.add("invalid");
+    eleInput.classList.remove("valid");
+    eleSpan.style.display = "block";
+  } else {
+    eleInput.classList.add("valid");
+    eleInput.classList.remove("invalid");
+    eleSpan.style.display = "none";
+  }
+}
+
+function passwordTest(element) {
+  const ele = document.getElementById(element);
+  ele.addEventListener("change", () => {
+    patternTestOutcome(element);
+  });
+}
+
+function passwordMatch(element) {
+  const ele = document.getElementById(element);
+  const passEle = document.getElementById("password");
+  const eleSpan = document.getElementById(`${element}-span`);
+  ele.addEventListener("change", () => {
+    if (passEle.classList.contains("valid")) {
+      if (ele.value === passEle.value) {
+        patternTestOutcome(element);
+      } else {
+        eleSpan.innerHTML = "Passwords must match";
+        eleSpan.style.display = "block";
+      }
     } else {
-      postInput.classList.add("valid");
-      postInput.classList.remove("invalid");
-      postSpan.style.display = "none";
+      eleSpan.innerHTML = "Please enter a valid initial password above";
+      eleSpan.style.display = "block";
     }
   });
 }
@@ -176,4 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
   addChangeEvent("country");
   addChangeEvent("postcode");
   postEvent();
+  passwordTest("password");
+  passwordMatch("repeat-password");
 });
